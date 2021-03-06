@@ -1,0 +1,28 @@
+<h1>About Meadowlark Travel</h1>
+
+{{#if fortune}}
+    <p>Your prediction for today:</p>
+    <blockquote>{{fortune}}</blockquote>
+{{/if}}
+
+
+<hr>
+<hr>
+<hr>
+
+
+{{#if fortune}}
+    {{#each fortune}}
+        {{#if @first}}
+            {{math @index "+" 1}} : {{this}}   -- FIRST <br>
+            {{else}}
+                {{#if @last}}
+                    {{math @index "+" 1}}: {{this}}   -- LAST
+                    {{else}}
+                    {{math @index "+" 1}}: {{this}} <br>
+                {{/if}}
+        {{/if}}
+    {{/each}}
+    {{else}}
+    <h5>Dont have array</h5>
+{{/if}}

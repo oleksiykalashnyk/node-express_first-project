@@ -1,0 +1,13 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+header{
+    width: 100%;
+    background: radial-gradient(ellipse farthest-corner at 30px 20px, #fff, #ffd067);
+}
+header>img{
+    display: block;
+    margin: auto;
+}

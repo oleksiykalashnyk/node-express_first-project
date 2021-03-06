@@ -1,0 +1,6 @@
+#npm
+node_modules
+#time files
+*~
+#For Mac
+.DS_Store
