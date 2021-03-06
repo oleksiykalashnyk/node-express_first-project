@@ -7,11 +7,33 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Meadowlark Travel</title>
     <link rel="stylesheet" href="/style/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <header>
-    <img src="/img/logo.png" alt="Logo firmy" >
+    <a href="/">
+        <img src="/img/logo.png" alt="Logo firmy" >
+    </a>
+    <div class="topnav" id="myTopnav">
+        <a href="/" class="active">Home</a>
+        <a href="/about">About</a>
+        <a href="/12312sad">Error page</a>
+        <a href="javascript:void(0);" class="icon" onclick="openNav()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
 </header>
     {{{body}}}
+
+<script>
+    function openNav() {
+        const x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
+    }
+</script>
 </body>
 </html>

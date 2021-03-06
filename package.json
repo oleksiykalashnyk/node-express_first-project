@@ -1,12 +1,12 @@
 {
   "name": "site",
   "version": "1.0.0",
-  "description": "Project 1//0",
-  "main": "meadowlark.js",
+  "description": "Project 1.0.0",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Olek Kalashnyk",
+  "author": "Oleksiy Kalashnyk",
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
