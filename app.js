@@ -1,8 +1,7 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
-
-//exports privet modules
-const fortune = require('./lib/fortune');
+//Обработчик
+const handlers = require('./lib/handlers')
 
 const app = express()
 //settings handlebars
@@ -29,32 +28,12 @@ app.use(express.static(__dirname+'/public'))
 //Set PORT
 const port = process.env.PORT || 3000
 
-// GET method route
-app.get('/', (req,res) => res.render('home'));
+// GET route
+app.get('/', handlers.home)
+app.get('/about', handlers.about)
 
-app.get('/about', (req,res) => {
-    res.render('about', {fortune:fortune.getFortune()});
-})
-
-
-// POST method route
-app.post('/', function (req, res) {
-    res.json({"foo": "bar"});
-})
-
-
-//If  not are page (404)
-app.use((req,res) => {
-    res.status(404)
-    res.render('404')
-})
-
-//If 500 Not are standard page
-app.use((err,req,res,next) => {
-    console.error(err.message)
-    res.status(500)
-    res.render('500')
-})
+app.use(handlers.notFound)
+app.use(handlers.serverError)
 
 app.listen(port, () => {
     console.log(`Express start work in the page http://localhost:${port};`)
