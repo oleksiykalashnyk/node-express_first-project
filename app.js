@@ -1,9 +1,10 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
-//exports privet moduls
-const fortune = require('./lib/fortune');
-const app = express()
 
+//exports privet modules
+const fortune = require('./lib/fortune');
+
+const app = express()
 //settings handlebars
 app.engine('handlebars', expressHandlebars({
     defaultLayout: 'main',
@@ -20,7 +21,6 @@ app.engine('handlebars', expressHandlebars({
             }[operator];
         }}
 }))
-
 app.set('view engine', 'handlebars')
 
 //Set public folder
