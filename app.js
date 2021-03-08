@@ -39,7 +39,7 @@ app.get('/about', (req,res) => {
 
 // POST method route
 app.post('/', function (req, res) {
-    res.send('POST request to the homepage');
+    res.json({"foo": "bar"});
 })
 
 
