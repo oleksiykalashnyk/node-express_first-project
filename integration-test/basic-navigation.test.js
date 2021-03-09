@@ -21,7 +21,7 @@ test('The "home" page allows you to go to the "about" us page', async () => {
     await page.goto(`http://localhost:${port}`)
     await Promise.all([
         page.waitForNavigation(),
-        page.click('[data-test-id="abou1t"]'),
+        page.click('[data-test-id="about"]'),
     ])
     expect(page.url()).toBe(`http://localhost:${port}/about`)
     await browser.close()

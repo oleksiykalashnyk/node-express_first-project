@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "test": "jest",
+    "lint": "eslint app.js lib",
     "o_dev": "nodemon app.js"
   },
   "author": "Oleksiy Kalashnyk",
