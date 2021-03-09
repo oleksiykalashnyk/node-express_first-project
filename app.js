@@ -35,6 +35,10 @@ app.get('/about', handlers.about)
 app.use(handlers.notFound)
 app.use(handlers.serverError)
 
-app.listen(port, () => {
-    console.log(`Express start work in the page http://localhost:${port};`)
-})
+if(require.main === module) {
+    app.listen(port, () => {
+        console.log( `Express start work in the page http://localhost:${port};` )
+    })
+} else {
+    module.exports = app
+}
