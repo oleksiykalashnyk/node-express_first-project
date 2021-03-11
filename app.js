@@ -34,6 +34,8 @@ app.disable('x-powered-by')
 // GET route
 app.get('/', handlers.home)
 app.get('/about', handlers.about)
+app.get('/about/:id', handlers.aboutQueryInteger)
+
 app.get('/headers',handlers.headers)
 app.use(handlers.notFound)
 app.use(handlers.serverError)
