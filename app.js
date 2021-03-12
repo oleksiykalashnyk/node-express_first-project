@@ -1,9 +1,12 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
+const bodyParser = require('body-parser')
+
 //Обработчик
 const handlers = require('./lib/handlers')
 
 const app = express()
+
 //settings handlebars
 app.engine('handlebars', expressHandlebars({
     defaultLayout: 'main',
@@ -22,6 +25,10 @@ app.engine('handlebars', expressHandlebars({
 }))
 app.set('view engine', 'handlebars')
 
+//Encode form body data
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
 //Set public folder
 app.use(express.static(__dirname+'/public'))
 
@@ -31,12 +38,106 @@ const port = process.env.PORT || 3000
 //Off  the header what is app used express server
 app.disable('x-powered-by')
 
-// GET route
+// GET routes
 app.get('/', handlers.home)
 app.get('/about', handlers.about)
+app.get('/headers',handlers.headers)
+
+
+//API GET routes
+
+//_Response JSON
+let tours = [
+    {id:0, name: "Hood River", price: 99.99},
+    {id:1, name: "Oregon Coast", price: 149.96}
+]
+app.get('/api/tours_json', (req,res) => res.json(tours))
+
+//_Response XML
+app.get('/api/tours_xml', (req, res) => {
+    const toursXml = '<?xml version="1.0"?><tours>' +
+        tours.map(p =>
+            `<tour price="${p.price}" id="${p.id}">${p.name}</tour>`
+        ).join('') + '</tours>'
+    const toursText = tours.map(p =>
+        `${p.id}: ${p.name} (${p.price})`
+    ).join('\n')
+    res.format({
+        'application/json': () => res.json(tours),
+        'application/xml': () => res.type('application/xml').send(toursXml),
+        'text/xml': () => res.type('text/xml').send(toursXml),
+        'text/plain': () => res.type('text/plain').send(toursXml),
+    })
+})
+
+
+//API POST routes
+app.post('/api/process-contact', (req,res) => {
+    if(req.body.name  && req.body.email){
+        res.json({
+            username: req.body.name,
+            user_email: req.body.email
+        })
+    }
+    res.json({
+        message: "Error, you must send name and email"
+    })
+})
+
+app.post('/api/tour', (req, res) => {
+    let p = {
+        id: tours[tours.length-1].id+1,
+        name : "",
+        price: ""
+    }
+    if(req.body.name) p.name = req.body.name
+    if(req.body.price ) p.price = parseInt(req.body.price)
+    tours.push(p)
+    console.log(tours)
+    res.json({
+        success: true,
+        name: p.name,
+        price: p.price
+    })
+})
+
+
+//API PUT routes
+app.put('/api/tour/:id', (req, res) => {
+    const p = tours.find(p => p.id === parseInt(req.params.id))
+    if(!p) return res.status(410).json({ error: 'Error path' })
+    if(req.body.name) p.name = req.body.name
+    if(req.body.price) p.price = req.body.price
+    console.log(tours)
+    res.json({
+        success: true,
+        name: p.name,
+        price: p.price
+    })
+})
+
+//API DELETE routes
+app.delete('/api/tour/:id', (req, res) => {
+    const idx = tours.findIndex(tour => tour.id === parseInt(req.params.id))
+    if(idx < 0) return res.json({ error: 'No such tour exists.' })
+    tours.splice(idx, 1)
+    console.log(tours)
+    res.json({ success: true })
+})
+
+
+//tests
 app.get('/about/:id', handlers.aboutQueryInteger)
 
-app.get('/headers',handlers.headers)
+//Without layout
+app.get('/test_without_layout', (req,res) => {
+    res.render('test',{layout: null})
+})
+//Custom layout
+app.get('/test_custom_layout', (req,res) => {
+    res.render('test',{layout: 'custom'})
+})
+
 app.use(handlers.notFound)
 app.use(handlers.serverError)
 
