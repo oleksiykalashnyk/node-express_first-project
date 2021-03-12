@@ -44,6 +44,9 @@ app.get('/about', handlers.about)
 app.get('/headers',handlers.headers)
 
 
+
+
+
 //API GET routes
 
 //_Response JSON
@@ -131,11 +134,24 @@ app.get('/about/:id', handlers.aboutQueryInteger)
 
 //Without layout
 app.get('/test_without_layout', (req,res) => {
-    res.render('test',{layout: null})
+    res.render('test',{layout: null},)
 })
+
+const testData = {
+    currency:{
+        name: "Dollar",
+        abbrev: "USD"
+    },
+    tours : [
+        {id:0, name: "Hood River", price: 99.99},
+        {id:1, name: "Oregon Coast", price: 149.96}
+    ],
+    specialURL: "/",
+    currencies: ["USD","PLN","RUB"]
+}
 //Custom layout
 app.get('/test_custom_layout', (req,res) => {
-    res.render('test',{layout: 'custom'})
+    res.render('test',{data:testData,layout: 'custom'})
 })
 
 app.use(handlers.notFound)

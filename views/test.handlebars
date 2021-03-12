@@ -1,1 +1,30 @@
 <h1>Hi this is no layout test</h1>
+<ul>
+{{#each data.tours }}
+    <li>
+        {{name}} - {{price}}
+        {{#if ../data.currencies}}
+            {{../data.currency.abbrev}}
+        {{/if}}
+    </li>
+{{/each}}
+</ul>
+
+{{#unless data.currencies}}
+    <p>All price in {{data.currency.name}}</p>
+{{/unless}}
+
+{{#if data.specialURL}}
+    <p>This is <a href="{{data.specialURL}}">Home page</a></p>
+{{else}}
+    <p>This is <a href="/about">About page</a></p>
+{{/if}}
+
+<p>
+    {{#each data.currencies }}
+        <a href="#">{{.}}</a>
+        {{else}}
+            Sorry are now accept only {{data.currency.name}}
+
+    {{/each}}
+</p>
