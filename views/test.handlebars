@@ -28,3 +28,21 @@
 
     {{/each}}
 </p>
+
+<hr>
+<hr>
+
+{{! Test SECTION function}}
+{{# section "head"}}
+    <meta name="robots" content="noindex">
+{{/section}}
+
+<h1>Test</h1>
+<p>Test section fn</p>
+
+{{#section 'scripts'}}
+    <script>
+        document.querySelector('body')
+                .insertAdjacentHTML('beforeEnd', '<small>(skrypt section!)</small>')
+    </script>
+{{/section}}
