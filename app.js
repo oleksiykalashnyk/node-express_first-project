@@ -25,6 +25,9 @@ app.engine('handlebars', expressHandlebars({
 }))
 app.set('view engine', 'handlebars')
 
+//Use cache in the app
+// app.set('view cache', true)
+
 //Encode form body data
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())

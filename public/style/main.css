@@ -3,6 +3,9 @@
     padding: 0px;
     box-sizing: border-box;
 }
+#body{
+    height: 85vh;
+}
 header{
     width: 100%;
     background: radial-gradient(ellipse farthest-corner at 30px 20px, #fff, #ffd067);
