@@ -13,31 +13,31 @@
     </div>
 </div>
 {{/section}}
+<div class="temp_table">
+    <table class="table mt-4 table-responsive">
+        <thead>
+        <tr class="table-success">
+            <th scope="col">Time</th>
+            <th scope="col">Temperatures </th>
+            <th scope="col">Chance to Rein?</th>
+            <th scope="col">Chance to Snow?</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
 
-<table class="table mt-4 ">
-    <thead>
-    <tr class="table-success">
-        <th scope="col">Time</th>
-        <th scope="col">Temperatures </th>
-        <th scope="col">Chance to Rein?</th>
-        <th scope="col">Chance to Snow?</th>
-        <th scope="col"></th>
-    </tr>
-    </thead>
-    <tbody>
-
-{{#each temp}}
-    <tr>
-        <td >{{time}}</td>
-        <th scope="row">{{temp_c}} &#8451;</th>
-        <td>{{will_it_rain}} %</td>
-        <td>{{will_it_snow}} %</td>
-        <td>
-            <img src="{{condition.icon}} " alt="img">
-        </td>
-    </tr>
-{{/each}}
-    </tbody>
-</table>
-
+    {{#each temp}}
+        <tr>
+            <td >{{time}}</td>
+            <th scope="row">{{temp_c}} &#8451;</th>
+            <td>{{will_it_rain}} %</td>
+            <td>{{will_it_snow}} %</td>
+            <td>
+                <img src="{{condition.icon}} " alt="img">
+            </td>
+        </tr>
+    {{/each}}
+        </tbody>
+    </table>
+</div>
 
