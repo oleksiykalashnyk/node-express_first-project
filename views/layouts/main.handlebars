@@ -8,6 +8,7 @@
     <title>Meadowlark Travel</title>
     <link rel="stylesheet" href="/style/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {{{_sections.head}}}
 </head>
 <body>
 <header>
@@ -25,7 +26,16 @@
         </a>
     </div>
 </header>
-    {{{body}}}
+    <div class="main_block">
+        <div class="left_block">
+            {{{body}}}
+        </div>
+        <div class="right_block">
+            {{> weather}}
+        </div>
+    </div>
+
+    {{{_sections.scripts}}}
 
 <script>
     function openNav() {

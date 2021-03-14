@@ -4,6 +4,9 @@ const bodyParser = require('body-parser')
 
 //Обработчик
 const handlers = require('./lib/handlers')
+//МидлВеер
+const weatherMiddlware = require('./lib/middleware/weather')
+
 
 const app = express()
 
@@ -47,6 +50,10 @@ const port = process.env.PORT || 3000
 
 //Off  the header what is app used express server
 app.disable('x-powered-by')
+
+//Middlware
+app.use(weatherMiddlware)
+
 
 // GET routes
 app.get('/', handlers.home)
