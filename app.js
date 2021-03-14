@@ -1,11 +1,11 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
 const bodyParser = require('body-parser')
-
 //Обработчик
 const handlers = require('./lib/handlers')
 //МидлВеер
 const weatherMiddlware = require('./lib/middleware/weather')
+
 
 
 const app = express()
@@ -55,6 +55,7 @@ app.disable('x-powered-by')
 app.use(weatherMiddlware)
 
 
+
 // GET routes
 app.get('/', handlers.home)
 app.get('/about', handlers.about)
@@ -63,7 +64,8 @@ app.get('/headers',handlers.headers)
 
 //GET test
 app.get('/about/:id', handlers.aboutQueryInteger)
-
+app.get('/weatherApi', handlers.weatherApi)
+app.get('/weatherApiAllTimeInDay', handlers.weatherApiAllTimeInDay)
 
 //API GET routes
 

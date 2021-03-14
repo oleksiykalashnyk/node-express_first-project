@@ -1,0 +1,15 @@
+<div class="card mx-auto text-dark text-center" style="width:400px;">
+    <img src="{{ data.current.condition.icon }}" class="card-img-top" alt="{{ data.current.condition.text }}">
+    <div class="card-body ">
+        <h5 class="card-title display-6">{{ data.location.name }}</h5>
+        <p class="card-text">{{ data.current.condition.text }}</p>
+        <p class="badge fs-6 text-dark"> <b>{{ date.day }} / {{ date.month }} / {{ date.year }}</b></p>
+    </div>
+        <h3 class="badge fs-5 bg-success">{{ data.current.temp_c }} &#8451;</h3>
+    <div class="card-body">
+        <p>Last update:</p>
+        <p class="lead"> <b>{{ date.hour }} : {{ date.minute }}</b></p>
+    </div>
+</div>
+
+
