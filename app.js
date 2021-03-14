@@ -61,7 +61,8 @@ app.get('/about', handlers.about)
 app.get('/headers',handlers.headers)
 
 
-
+//GET test
+app.get('/about/:id', handlers.aboutQueryInteger)
 
 
 //API GET routes
@@ -146,8 +147,7 @@ app.delete('/api/tour/:id', (req, res) => {
 })
 
 
-//tests
-app.get('/about/:id', handlers.aboutQueryInteger)
+
 
 //Without layout
 app.get('/test_without_layout', (req,res) => {
@@ -171,6 +171,11 @@ app.get('/test_custom_layout', (req,res) => {
     res.render('test',{data:testData,layout: 'custom'})
 })
 
+
+
+app.get('/500', (req,res) => {
+    res.render('500')
+})
 app.use(handlers.notFound)
 app.use(handlers.serverError)
 

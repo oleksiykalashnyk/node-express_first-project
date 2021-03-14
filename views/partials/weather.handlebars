@@ -1,11 +1,12 @@
-<div class="weatherWidget">
-  {{#each partials.weatherContext}}
-    <div class="location">
-      <h3>{{location.name}}</h3>
-        <img src="{{iconUrl}}" alt="{{weather}}">
-        <p><b> {{weather}}</b></p>
-        <p>{{temp}}</p>
+{{#each partials.weatherContext}}
+    <div class="card text-center shadow-sm text-dark mx-sm-5 my-sm-2 mx-md-0 my-md-4">
+        <img src="{{iconUrl}}" class="card-img-top" alt="{{weather}}">
+        <div class="card-body">
+            <h5 class="card-title">{{location.name}}</h5>
+            <p class="card-text">{{weather}}</p>
+            <div class="badge fs-5 bg-success">
+                {{temp}} &#8451;
+            </div>
+        </div>
     </div>
-  {{/each}}
-  <small style="margin: auto;">Source: <a href="https://openweathermap.org">OpenWeatherMap</a></small>
-</div>
+{{/each}}
