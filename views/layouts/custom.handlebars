@@ -13,19 +13,19 @@
     {{{_sections.head}}}
 </head>
 
-<body class="bg-dark">
+<body>
 {{> nav}}
 
-<div class="container text-white">
+<div class="container ">
 
     <div class="row">
-        <div class="col-sm-12 col-md-9">
+        <div class="col-sm-12 col-md-9  order-2 order-md-1">
             <div id="body" class="d-flex flex-column ">
                 {{{body}}}
             </div>
         </div>
-        <div class="col-sm-12 col-md-3">
-            {{> weather}}
+        <div class="col-sm-12 col-md-3 order-1 order-md-2 mt-2">
+            {{{_sections.temp_widget}}}
         </div>
     </div>
 
