@@ -66,6 +66,7 @@ app.get('/headers',handlers.headers)
 app.get('/about/:id', handlers.aboutQueryInteger)
 app.get('/weatherApi', handlers.weatherApi)
 app.get('/weatherApiAllTimeInDay', handlers.weatherApiAllTimeInDay)
+app.get('/weatherApiAllTimeInDay/:city', handlers.weatherApiAllTimeInDay)
 
 //API GET routes
 
