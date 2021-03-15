@@ -1,5 +1,5 @@
 {{# section "temp_widget"}}
-<div class="card mx-auto text-dark text-center" style="width: 100%">
+<div class="card mx-auto text-dark text-center " style="width: 100%">
     <img src="{{ data.current.condition.icon }}" class="card-img-top" alt="{{ data.current.condition.text }}">
     <div class="card-body ">
         <h5 class="card-title display-6">{{ data.location.name }}</h5>
@@ -13,13 +13,14 @@
     </div>
 </div>
 {{/section}}
-<div class="temp_table">
-    <table class="table mt-4 table-responsive">
+
+<div class="temp_table text-center table-responsive">
+    <table class="table mt-4  table-hover">
         <thead>
         <tr class="table-success">
             <th scope="col">Time</th>
-            <th scope="col">Temp? </th>
-            <th scope="col">Rein?</th>
+            <th scope="col">Temp </th>
+            <th scope="col">Rain?</th>
             <th scope="col">Snow?</th>
             <th scope="col"></th>
         </tr>
@@ -30,8 +31,20 @@
         <tr>
             <td >{{time}}</td>
             <th scope="row">{{temp_c}} &#8451;</th>
-            <td>{{will_it_rain}} %</td>
-            <td>{{will_it_snow}} %</td>
+            <td>
+                {{#if will_it_rain}}
+                    <span class="bg-info h-100">Most likely it will rain</span>
+                {{else}}
+                    Not now
+                {{/if}}
+            </td>
+            <td>
+                {{#if will_it_snow}}
+                    <span class="bg-info">Most likely it will snow </span>
+                {{else}}
+                    Not now
+                {{/if}}
+            </td>
             <td>
                 <img src="{{condition.icon}} " alt="img">
             </td>
@@ -41,3 +54,6 @@
     </table>
 </div>
 
+
+<!--button to UP-->
+<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>

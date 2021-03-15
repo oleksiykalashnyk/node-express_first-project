@@ -6,8 +6,6 @@ const handlers = require('./lib/handlers')
 //МидлВеер
 const weatherMiddlware = require('./lib/middleware/weather')
 
-
-
 const app = express()
 
 //settings handlebars
@@ -53,8 +51,6 @@ app.disable('x-powered-by')
 
 //Middlware
 app.use(weatherMiddlware)
-
-
 
 // GET routes
 app.get('/', handlers.home)
