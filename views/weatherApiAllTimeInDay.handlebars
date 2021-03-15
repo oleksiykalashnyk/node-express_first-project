@@ -1,15 +1,21 @@
 {{# section "temp_widget"}}
 <div class="card mx-auto text-dark text-center " style="width: 100%">
-    <img src="{{ data.current.condition.icon }}" class="card-img-top" alt="{{ data.current.condition.text }}">
+    <img src="{{ data.current.condition.icon }}" class="rounded" alt="{{ data.current.condition.text }}">
+    <div class="w-25 mx-auto">
+        <h3 class="badge fs-5 bg-success">{{ data.current.temp_c }} &#8451;</h3>
+    </div>
+    <p class="card-text">{{ data.current.condition.text }}</p>
     <div class="card-body ">
         <h5 class="card-title display-6">{{ data.location.name }}</h5>
-        <p class="card-text">{{ data.current.condition.text }}</p>
+        <h5 class="card-title fs-6">{{ data.location.country }}</h5>
         <p class="badge fs-6 text-dark"> <b>{{ date.day }} / {{ date.month }} / {{ date.year }}</b></p>
-    </div>
-        <h3 class="badge fs-5 bg-success">{{ data.current.temp_c }} &#8451;</h3>
-    <div class="card-body">
-        <p>Last update:</p>
-        <p class="lead"> <b>{{ date.hour }} : {{ date.minute }}</b></p>
+        <p>Local time:</p>
+        <div class="alert alert-success" role="alert">
+            <b>{{ date.hour }} : {{ date.minute }}</b>
+        </div>
+        <p class="text-muted" >
+            Powered by <a href="https://www.weatherapi.com/" title="Free Weather API" class="font-monospace fs-6">WeatherAPI.com</a>
+        </p>
     </div>
 </div>
 {{/section}}

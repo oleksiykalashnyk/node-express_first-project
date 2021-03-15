@@ -55,6 +55,7 @@ app.use(weatherMiddlware)
 // GET routes
 app.get('/', handlers.home)
 app.get('/about', handlers.about)
+app.get('/cookie', handlers.cookie)
 app.get('/headers',handlers.headers)
 
 
