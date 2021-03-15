@@ -16,7 +16,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="/style/main.css">
-    <title>Custom layout</title>
+    <title>Full page</title>
 
     {{{_sections.head}}}
 </head>
@@ -24,16 +24,13 @@
 <body>
 {{> nav}}
 
-<div class="container">
+<div class="container ">
 
     <div class="row">
-        <div class="col-sm-12 col-md-9">
+        <div class="col-sm-12 pt-4">
             <div id="body" class="d-flex flex-column ">
                 {{{body}}}
             </div>
-        </div>
-        <div class="col-sm-12 col-md-3">
-            {{> weather}}
         </div>
     </div>
 
