@@ -1,14 +1,16 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
 const bodyParser = require('body-parser')
+const multiparty = require('multiparty')
+
 //Обработчик
 const handlers = require('./lib/handlers')
-//МидлВеер
+//МидлВеер - посредник
 const weatherMiddlware = require('./lib/middleware/weather')
 
 const app = express()
 
-//settings handlebars
+//settings handlebars and add new functions
 app.engine('handlebars', expressHandlebars({
     defaultLayout: 'main',
     helpers:{
@@ -36,9 +38,13 @@ app.set('view engine', 'handlebars')
 //Use cache in the app
 // app.set('view cache', true)
 
-//Encode form body data
+//Encode form body from POST data (OLD TYPE -- if you use Express.js version 4.16+ dont need this packed)
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
+//// !!! Encode form body from POST data (NEW TYPE -- if you use Express.js version 4.16+)
+// app.use(express.json())
+// app.use(express.urlencoded())
 
 //Set public folder
 app.use(express.static(__dirname+'/public'))
@@ -57,6 +63,29 @@ app.get('/', handlers.home)
 app.get('/about', handlers.about)
 app.get('/cookie', handlers.cookie)
 app.get('/headers',handlers.headers)
+
+// FORM browser method
+app.get('/newsletter-signup', handlers.newsletterSignup)
+app.post('/newsletter-signup/process', handlers.newsletterSignupProcess)
+app.get('/newsletter-signup/thank-you', handlers.newsletterSignupThankYou)
+
+// FORM fetch/JSON method
+app.get('/newsletter', handlers.newsletter)
+app.post('/api/newsletter-signup', handlers.apiNewsletter)
+
+// FORM use multiparty
+app.get('/contest/vacation-photo', handlers.vacationPhotoContest)
+app.get('/contest/vacation-photo-thank-you', handlers.vacationPhotoContestThankYou)
+
+app.post('/contest/vacation-photo/:year/:month', (req, res) => {
+    const form = new multiparty.Form()
+    form.parse(req, (err, fields, files) => {
+        if(err) return handlers.vacationPhotoContestError(req, res, err.message)
+        console.log('got fields: ', fields)
+        console.log('and files: ', files)
+        handlers.vacationPhotoContestProcess(req, res, fields, files)
+    })
+})
 
 
 //GET test
@@ -95,11 +124,14 @@ app.get('/api/tours_xml', (req, res) => {
 //API POST routes
 app.post('/api/process-contact', (req,res) => {
     if(req.body.name  && req.body.email){
+        res.status(303)
+        res.send(req.body.name + "  " +  req.body.email)
         res.json({
             username: req.body.name,
             user_email: req.body.email
         })
     }
+    res.status(404)
     res.json({
         message: "Error, you must send name and email"
     })

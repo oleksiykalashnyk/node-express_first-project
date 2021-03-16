@@ -35,7 +35,7 @@
     color: #ffffff;
 }
 #myBtn {
-    width: 7%;
+    width: 100px;
     height: 5%;
     display: none; /* Hidden by default */
     position: fixed; /* Fixed/sticky position */

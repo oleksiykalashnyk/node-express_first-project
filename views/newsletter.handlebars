@@ -1,0 +1,61 @@
+<h2 class="fs-2 p-5">Sign up for our newsletter to receive news and special offers!</h2>
+<div id="newsletterSignupFormContainer">
+    <form class="form-horizontal col-8 col-sm-8 col-md-6 col-lg-4 mx-auto mb-5" role="form" id="newsletterSignupForm">
+        <input type="hidden" name="_csrf" value="{{csrf}}">
+        <div class="form-group">
+            <label for="fieldName" class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-12">
+                <input type="text" class="form-control" id="fieldName" name="name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="fieldEmail" class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-12">
+                <input type="email" class="form-control" required id="fieldEmail" name="email">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="d-grid gap-2 mt-3">
+                <button type="submit" class="btn btn-primary ">Zarejestruj</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{{#section 'scripts'}}
+    <script>
+        document.getElementById('newsletterSignupForm')
+            .addEventListener('submit', evt => {
+                evt.preventDefault()
+                const form = evt.target
+
+                const body = JSON.stringify({
+                    _csrf: form.elements._csrf.value,
+                    name: form.elements.name.value,
+                    email: form.elements.email.value,
+                })
+                const headers = { 'Content-Type': 'application/json' }
+                const container = document.getElementById('newsletterSignupFormContainer')
+
+                fetch('/api/newsletter-signup', { method: 'post', body, headers })
+                    .then(resp => {
+                        if(resp.status < 200 || resp.status >= 300)
+                            throw new Error(`Error status:  ${resp.status}`)
+                        return resp.json()
+                    })
+                    .then(json => {
+                        container.innerHTML =
+                            '<div class="text-center p-3 mb-2 bg-success text-white">' +
+                                '<b class="">Subscription was successful! <br> Thanks! <br></b>' +
+                                '<a href="/" class="text-dark fs-5">Go back to the main page</a>' +
+                            '</div>'
+                    })
+                    .catch(err => {
+                        container.innerHTML =
+                            '<div class="text-center p-3 mb-2 bg-danger text-white">' +
+                                '<b class="">An error occurred! <br> <a href="/newsletter" class="text-dark">Try again</a></b>' +
+                            '</div>'
+                    })
+                })
+    </script>
+{{/section}}

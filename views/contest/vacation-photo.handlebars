@@ -1,0 +1,34 @@
+<p class="fs-1 p-5 text-center">Sign up for our newsletter to receive news and special offers!</p>
+
+<form class="form-horizontal col-8 col-sm-8 col-md-6 col-lg-4 mx-auto mb-5" role="form" enctype="multipart/form-data"  action="/contest/vacation-photo/{{year}}/{{month}}" method="POST">
+    <input type="hidden" name="_csrf" value="{{csrf}}">
+    <div class="form-group">
+        <label for="fieldName" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-12">
+            <input type="text" class="form-control" id="fieldName" name="name">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="fieldEmail" class="col-sm-2 control-label">Email</label>
+        <div class="col-sm-12">
+            <input type="email" class="form-control" required id="fieldEmail" name="email">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="fieldPhoto" class="col-sm-2 control-label">Zdjęcie z wakacji</label>
+        <div class="col-sm-12">
+            <input type="file" class="form-control" required  accept="image/*" id="fieldPhoto" name="photo">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="fieldPhoto1" class="col-sm-2 control-label">Zdjęcie z wakacji</label>
+        <div class="col-sm-12">
+            <input type="file" class="form-control" required  accept="image/*" id="fieldPhoto1" name="photo2">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="d-grid gap-2 mt-3">
+            <button type="submit" class="btn btn-primary ">Zarejestruj</button>
+        </div>
+    </div>
+</form>
