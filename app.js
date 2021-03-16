@@ -81,8 +81,6 @@ app.post('/contest/vacation-photo/:year/:month', (req, res) => {
     const form = new multiparty.Form()
     form.parse(req, (err, fields, files) => {
         if(err) return handlers.vacationPhotoContestError(req, res, err.message)
-        console.log('got fields: ', fields)
-        console.log('and files: ', files)
         handlers.vacationPhotoContestProcess(req, res, fields, files)
     })
 })
