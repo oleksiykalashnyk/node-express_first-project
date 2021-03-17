@@ -38,10 +38,9 @@ app.set('view engine', 'handlebars')
 //Use cache in the app
 // app.set('view cache', true)
 
-//Encode form body from POST data (OLD TYPE -- if you use Express.js version 4.16+ dont need this packed)
+// *** Encode form body from POST data (OLD TYPE -- if you use Express.js version 4.16+ dont need this packed)
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-
 //// !!! Encode form body from POST data (NEW TYPE -- if you use Express.js version 4.16+)
 // app.use(express.json())
 // app.use(express.urlencoded())
@@ -73,10 +72,10 @@ app.get('/newsletter-signup/thank-you', handlers.newsletterSignupThankYou)
 app.get('/newsletter', handlers.newsletter)
 app.post('/api/newsletter-signup', handlers.apiNewsletter)
 
+
 // FORM use multiparty
 app.get('/contest/vacation-photo', handlers.vacationPhotoContest)
 app.get('/contest/vacation-photo-thank-you', handlers.vacationPhotoContestThankYou)
-
 app.post('/contest/vacation-photo/:year/:month', (req, res) => {
     const form = new multiparty.Form()
     form.parse(req, (err, fields, files) => {
@@ -84,7 +83,15 @@ app.post('/contest/vacation-photo/:year/:month', (req, res) => {
         handlers.vacationPhotoContestProcess(req, res, fields, files)
     })
 })
-
+// FORM use multiparty fetch/JSON method
+app.get('/contest/vacation-photo-ajax', handlers.vacationPhotoContestAjax)
+app.post('/api/vacation-photo-contest/:year/:month', (req, res) => {
+    const form = new multiparty.Form()
+    form.parse(req, (err, fields, files) => {
+        if(err) return handlers.vacationPhotoContestError(req, res, err.message)
+        handlers.vacationPhotoContestProcessAjax(req, res, fields, files)
+    })
+})
 
 //GET test
 app.get('/about/:id', handlers.aboutQueryInteger)

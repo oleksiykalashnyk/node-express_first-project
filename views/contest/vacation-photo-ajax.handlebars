@@ -1,0 +1,60 @@
+<p class="fs-1 p-5 text-center">Take part in the contest for the best photo from your vacation!</p>
+
+<div id="vacationPhotoContestFormContainer">
+    <form id="vacationPhotoContestForm" class="form-horizontal col-8 col-sm-8 col-md-6 col-lg-4 mx-auto mb-5" role="form" enctype="multipart/form-data"  action="/contest/vacation-photo/{{year}}/{{month}}" method="POST">
+        <input type="hidden" name="_csrf" value="{{csrf}}">
+        <div class="form-group">
+            <label for="fieldName" class="col-sm-12 control-label">Name</label>
+            <div class="col-sm-12">
+                <input type="text" class="form-control" id="fieldName" name="name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="fieldEmail" class="col-sm-12 control-label">Email</label>
+            <div class="col-sm-12">
+                <input type="email" class="form-control" required id="fieldEmail" name="email">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="fieldPhoto" class="col-sm-12 control-label">Zdjęcie z wakacji</label>
+            <div class="col-sm-12">
+                <input type="file" class="form-control" required  accept="image/*" id="fieldPhoto" name="photo">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="d-grid gap-2 mt-3">
+                <button type="submit" class="btn btn-primary ">Zarejestruj</button>
+            </div>
+        </div>
+    </form>
+</div>
+    {{#section 'scripts'}}
+        <script>
+            document.getElementById('vacationPhotoContestForm')
+                    .addEventListener('submit', evt => {
+                        evt.preventDefault()
+                        const body = new FormData(evt.target)
+                        const container = document.getElementById('vacationPhotoContestFormContainer')
+                        fetch('/api/vacation-photo-contest/{{year}}/{{month}}', { method: 'post', body })
+                            .then(resp => {
+                                if(resp.status < 200 || resp.status >= 300)
+                                    throw new Error(`Żądanie zakończyło się niepowodzeniem  ${resp.status}`)
+                                return resp.json()
+                            })
+                            .then(json => {
+                                container.innerHTML =
+                                    '<div class="text-center p-3 mb-2 bg-success text-white my-5">' +
+                                        '<b class="">Files and data send  was successful! <br> Thanks!</b>' +
+                                        '<br>' +
+                                        '<a href="/" class="text-dark">Go back to the main page</a>' +
+                                    '</div>'
+                            })
+                            .catch(err => {
+                                container.innerHTML =
+                                        '<div class="text-center p-3 mb-2 bg-danger text-white">' +
+                                            '<b class="">An error occurred! <br> <a href="/contest/vacation-photo-ajax" class="text-dark">Try again</a></b>' +
+                                        '</div>'
+                            })
+                    })
+        </script>
+    {{/section}}
