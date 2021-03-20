@@ -2,7 +2,10 @@ const express = require('express')
 const expressHandlebars = require('express-handlebars')
 const bodyParser = require('body-parser')
 const multiparty = require('multiparty')
+const cookieParser = require('cookie-parser')
 
+//Secret code for cookie
+const credentials = require('./credentials')
 //Обработчик
 const handlers = require('./lib/handlers')
 //МидлВеер - посредник
@@ -41,6 +44,10 @@ app.set('view engine', 'handlebars')
 // *** Off  the header what is app used express server
 app.disable('x-powered-by')
 
+
+// *** Use Cookie-parser vs secret code
+app.use(cookieParser(credentials.cookieSecret))
+
 // *** Encode form body from POST data (OLD TYPE -- if you use Express.js version 4.16+ dont need this packed)
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -53,7 +60,6 @@ app.use(express.static(__dirname+'/public'))
 
 //Set PORT
 const port = process.env.PORT || 3000
-
 
 //Middlware
 app.use(weatherMiddlware)
