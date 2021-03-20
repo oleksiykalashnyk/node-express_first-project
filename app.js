@@ -1,15 +1,20 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
+
 const bodyParser = require('body-parser')
 const multiparty = require('multiparty')
+
 const cookieParser = require('cookie-parser')
+const cookieSession = require('cookie-session')
 
 //Secret code for cookie
 const credentials = require('./credentials')
 //Обработчик
 const handlers = require('./lib/handlers')
 //МидлВеер - посредник
-const weatherMiddlware = require('./lib/middleware/weather')
+const weatherMiddleware = require('./lib/middleware/weather')
+const flashMiddleware = require('./lib/middleware/flash')
+
 
 const app = express()
 
@@ -44,7 +49,12 @@ app.set('view engine', 'handlebars')
 // *** Off  the header what is app used express server
 app.disable('x-powered-by')
 
-
+// *** Use Cookie-Session and add config data
+app.use(cookieSession({
+    resave: false,
+    saveUninitialized: false,
+    secret: credentials.cookieSecret
+}))
 // *** Use Cookie-parser vs secret code
 app.use(cookieParser(credentials.cookieSecret))
 
@@ -62,7 +72,8 @@ app.use(express.static(__dirname+'/public'))
 const port = process.env.PORT || 3000
 
 //Middlware
-app.use(weatherMiddlware)
+app.use(weatherMiddleware)
+app.use(flashMiddleware)
 
 // GET routes
 app.get('/', handlers.home)
