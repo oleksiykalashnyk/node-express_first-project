@@ -7,14 +7,44 @@ const multiparty = require('multiparty')
 const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session')
 
+const nodemailer = require('nodemailer')
+const nodemailerSendgrid  = require('nodemailer-sendgrid')
 //Secret code for cookie
 const credentials = require('./credentials')
+
+
+// const transport = nodemailer.createTransport(
+//     nodemailerSendgrid({
+//         apiKey: credentials.sendgrid.password
+//     })
+// );
+// transport
+//     .sendMail({
+//         from: 'olek.kalashnyk@gmail.com',
+//         to: 'olek.kalashnyk@gmail.com',
+//         subject: 'hello world',
+//         html: '<h1>Hello world!</h1>'
+//     })
+//     .then(([res]) => {
+//         console.log('Message delivered with code %s %s', res.statusCode, res.statusMessage);
+//     })
+//     .catch(err => {
+//         console.log('Errors occurred, failed to deliver message');
+//
+//         if (err.response && err.response.body && err.response.body.errors) {
+//             err.response.body.errors.forEach(error => console.log('%s: %s', error.field, error.message));
+//         } else {
+//             console.log(err);
+//         }
+//     });
+
+
+
 //Обработчик
 const handlers = require('./lib/handlers')
 //МидлВеер - посредник
 const weatherMiddleware = require('./lib/middleware/weather')
 const flashMiddleware = require('./lib/middleware/flash')
-
 
 const app = express()
 
