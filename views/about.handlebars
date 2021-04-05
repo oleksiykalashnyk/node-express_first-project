@@ -11,8 +11,13 @@
 
 
 <hr>
-<p>Cookie test</p>
+
 {{#if xxx}}
-    <blockquote>{{xxx}}</blockquote>
+    <blockquote>Cookie {{xxx}}</blockquote>
     <a href="?del=xxx">delete Cookie xxx</a>
+{{/if}}
+
+{{#if xxxSession}}
+    <blockquote>Session {{xxxSession}}</blockquote>
+    <a href="?del=xxxSession">delete xxxSession</a>
 {{/if}}
